@@ -72,7 +72,7 @@ docker push <repo>/<image_name>
 ```
 ### Run the application locally:
 ```
-python python-backend.py
+python3 python-backend.py
 ```
 or
 ```
@@ -134,7 +134,7 @@ kubernetes
 
 To install the requirements, run:
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
