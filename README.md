@@ -30,12 +30,12 @@ This is a Python backend microservice built using Flask, designed to accept and 
 #### Why Choose MongoDB Atlas?
 
 I chose MongoDB Atlas over a self-hosted MongoDB solution for several reasons:
-```
+
 - **Managed Service**: Atlas provides a fully managed database service, reducing the operational overhead of maintaining the database.
 - **Scalability**: It offers easy scalability options to accommodate varying workloads without manual intervention.
 - **Built-in Security**: Atlas includes features like automated backups, end-to-end encryption, and compliance with various security standards.
 - **Global Reach**: It allows deploying databases across multiple cloud regions, ensuring low-latency access for users worldwide.
-```
+
 
 ### Installation
 
