@@ -138,12 +138,6 @@ pip install -r requirements.txt
 ```
 
 
-```
-Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue if you find a bug or have a feature request.
 
-Notes
-- Make sure to replace placeholders like `<repository-url>`, `<repository-directory>`, and `<your-email@example.com>` with your actual details.
-- Adjust any section to better fit your project or personal preferences.
-- Ensure that the MongoDB connection string is secured and not exposed in public repositories.
-```
+## Contributing
+Contributions are welcome! Please feel free to submit a pull request or open an issue if you find a bug or have a feature request.
