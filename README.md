@@ -137,6 +137,16 @@ To install the requirements, run:
 pip3 install -r requirements.txt
 ```
 
+## Deployment to Kubernetes
+- Deploy the Docker image to your container registry (e.g., AWS ECR, Docker Hub).
+
+- Create a Kubernetes deployment. Ensure you have the necessary configuration to deploy the service.
+
+- Create a Service to expose the deployment
+
+**To expose the application using an AWS Load Balancer, create a service with the LoadBalancer type in your Kubernetes YAML configuration**
+
+- Set up Ingress to route external traffic to the service and also to access the Application Using Custom Domain Names
 
 
 ## Contributing
