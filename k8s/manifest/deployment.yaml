@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-backend
+  labels:
+    app: python-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-backend
+  template:
+    metadata:
+      labels:
+        app: python-backend
+    spec:
+      serviceAccountName: python-backend-sa
+      containers:
+      - name: python-backend
+        image: 864406680995.dkr.ecr.us-east-1.amazonaws.com/python-flask-app-repo:latest
+        ports:
+        - containerPort: 5000
+

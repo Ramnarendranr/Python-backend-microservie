@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: python-backend-rolebinding
+  namespace: default  # Specify the namespace for the RoleBinding
+subjects:
+- kind: ServiceAccount
+  name: python-backend-sa  # Name of the ServiceAccount
+  namespace: default       # Namespace of the ServiceAccount
+roleRef:
+  kind: Role
+  name: python-backend-role  # Name of the Role
+  apiGroup: rbac.authorization.k8s.io
+

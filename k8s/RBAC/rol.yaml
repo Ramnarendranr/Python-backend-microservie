@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: python-backend-role
+  namespace: default  # Specify the namespace for the Role
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]  # Specify the resources you want to access
+  verbs:
+    - get
+    - list
+    - watch
+    - create   # For POST
+    - update   # For PUT
+    - delete   # For DELETE
