@@ -16,15 +16,63 @@ This is a Python backend microservice built using Flask, designed to accept and 
 - MongoDB
 - Kubernetes
 - Docker
+- Terraform
+- AWS
 
 ## Getting Started
 
 ### Prerequisites
 
 - Docker installed on your machine.
-- Access to a Kubernetes cluster. (I'm using AWS EKS cluster)
+- Access to a Kubernetes cluster.
 - MongoDB instance (either local or cloud-based).
 - Required Python packages listed in `requirements.txt`.
+
+## EKS CLUSTER USING TERRAFORM
+
+This section covers the steps to create an AWS EKS cluster using Terraform with a remote backend for state storage and state locking.
+
+### 1. Initialize AWS CLI
+Before setting up Terraform, configure your AWS CLI with appropriate credentials:
+```
+aws configure
+```
+
+### 2. Setup Terraform Remote Backend with State Locking
+In this setup, we use Amazon S3 for storing the Terraform state file and DynamoDB for state locking to prevent concurrent state updates.
+
+Remote Backend: We use an S3 bucket to store the Terraform state file.
+State Locking: DynamoDB is used to implement state locking.
+
+### 3. Define the EKS Cluster Infrastructure
+In the Terraform configuration, we define an EKS cluster, VPC, subnets, and IAM roles needed for Kubernetes.
+
+You can use the eks module from Terraform’s AWS provider for simplified management of the EKS cluster.
+
+### 4. Initialize and Apply Terraform
+Run the following commands to initialize and create the infrastructure:
+```
+# Initialize Terraform and configure remote backend
+terraform init
+
+# Validate the configuration
+terraform validate
+
+# Plan the infrastructure changes
+terraform plan
+
+# Apply the changes to create the EKS cluster
+terraform apply
+```
+
+Once applied, Terraform will output the necessary details, including the EKS cluster and the worker nodes.
+
+### 5. Configure kubectl to Use the New EKS Cluster
+```
+aws eks --region <your-region> update-kubeconfig --name my-eks-cluster
+```
+This command configures kubectl to point to your new EKS cluster.
+
 
 ## DATABASE SELECTION - MONGODB
 #### Why Choose MongoDB Atlas?
@@ -65,20 +113,13 @@ I chose MongoDB Atlas over a self-hosted MongoDB solution for several reasons:
    ```
 
 
-### Build the Docker image:
-```
-docker build -t python-flask-app .
-docker push <repo>/<image_name>
-```
+
 ### Run the application locally:
 ```
 python3 python-backend.py
-```
-or
-```
-docker run -dit -p 5000:5000 <image_name>
 access the application via public ip of the server with port 5000
 ```
+
 ### The application will be accessible at http://localhost:5000 or if you're running in cloud server http://<public ip>:5000.
 
 ## API Endpoints
@@ -86,37 +127,51 @@ access the application via public ip of the server with port 5000
 ### Execute Code
 ### POST /execute
 
-Submit Python code for execution.
+#### 1. POST /execute - Submit Python code for execution
 
 Request Body:
 ```
 {
-  "code": "<base64-encoded-python-code>",
+  "code": "<base64-encoded Python code>",
   "language": "python"
 }
 ```
 Response:
 ```
 {
-  "execution_id": "<unique-execution-id>",
-  "message": "Job submitted for execution."
+  "execution_id": "<unique execution ID>",
+  "message": "Job submitted successfully."
 }
 ```
 
-### Get Execution Result
-### GET /result/<execution_id>
-
-Retrieve the result of the executed code.
+#### 2. GET /result/<execution_id> - Get the result of the executed job
 
 Response:
 ```
 {
-  "_id": "<mongo-document-id>",
-  "execution_id": "<unique-execution-id>",
-  "code": "<user-submitted-code>",
-  "output": "<execution-output>",
-  "status": "<success|failed>",
-  "timestamp": "<execution-timestamp>"
+  "execution_id": "<execution ID>",
+  "code": "<original Python code>",
+  "output": "<execution output>",
+  "status": "success/failed",
+  "timestamp": "<timestamp>"
+}
+```
+
+#### 3. DELETE /cleanup/<execution_id> - Cleanup the Kubernetes job
+
+Response:
+```
+{
+  "message": "Job <execution_id> cleaned up."
+}
+```
+
+#### 4. GET /health - Health check for the service
+
+Response:
+```
+{
+  "status": "healthy"
 }
 ```
 
@@ -135,6 +190,12 @@ kubernetes
 To install the requirements, run:
 ```
 pip3 install -r requirements.txt
+```
+
+### Build the Docker image:
+```
+docker build -t python-flask-app .
+docker push <repo>/<image_name>
 ```
 
 ## Deployment to Kubernetes
