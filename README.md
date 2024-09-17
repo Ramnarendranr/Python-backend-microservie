@@ -22,7 +22,7 @@ This is a Python backend microservice built using Flask, designed to accept and 
 ### Prerequisites
 
 - Docker installed on your machine.
-- Access to a Kubernetes cluster.
+- Access to a Kubernetes cluster. (I'm using AWS EKS cluster)
 - MongoDB instance (either local or cloud-based).
 - Required Python packages listed in `requirements.txt`.
 
