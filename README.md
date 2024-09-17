@@ -135,6 +135,10 @@ Start with /execute, then /result/execution_id, finally /cleanup/execution_id
 
 
 #### 1. POST /execute - Submit Python code for execution
+In header add: (This header ensures that the request body is treated as JSON.)
+```
+Content-Type: application/json
+```
 
 Request Body:
 ```
@@ -155,7 +159,12 @@ Response:
 }
 ```
 
+![alt text](image-1.png)
+
+
 #### 2. GET /result/<execution_id> - Get the result of the executed job
+
+![alt text](image-2.png)
 
 Response:
 ```
@@ -167,8 +176,12 @@ Response:
   "timestamp": "<timestamp>"
 }
 ```
+![alt text](image-3.png)
+
 
 #### 3. DELETE /cleanup/<execution_id> - Cleanup the Kubernetes job
+
+![alt text](image-4.png)
 
 Response:
 ```
@@ -177,7 +190,12 @@ Response:
 }
 ```
 
+![alt text](image-5.png)
+
+
 #### 4. GET /health - Health check for the service
+
+![alt text](image-6.png)
 
 Response:
 ```
@@ -186,7 +204,15 @@ Response:
 }
 ```
 
-# OPTIONAL
+![alt text](image-7.png)
+
+
+In terminal you'll see:
+
+![alt text](image-8.png)
+
+
+# BELOW STEPS ARE OPTIONAL 
 
 Creating a docker image of the application and deploying it to kubernetes.
 
