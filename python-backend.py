@@ -14,7 +14,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # MongoDB setup
-mongo_client = MongoClient("mongodb+srv://neranpolo99:2HDB8C8vIF0M2AE0@cluster0.ffokw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+#mongo_client = MongoClient("mongodb+srv://<username>:<password>@cluster0.ffokw.mongodb.net/?retryWrites=true&w=majority&appName=<clustername>")
+mongo_client = MongoClient("<MONGO-CLUSTER-URL>")
 db = mongo_client['code_execution']
 executions = db['executions']
 
