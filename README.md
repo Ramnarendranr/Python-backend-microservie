@@ -127,9 +127,11 @@ python3 python-backend.py
 ## API Endpoints
 
 I have used POSTMAN in this project. 
+
 You can use curl command from the Linux terminal to get the json output. Either way is preffered but POSTMAN has UI which is a better interface than curl.
 
 Go to POSTMAN website, create an account if you don't have one. 
+
 Start with /execute, then /result/execution_id, finally /cleanup/execution_id
 
 
@@ -176,7 +178,8 @@ Response:
   "timestamp": "<timestamp>"
 }
 ```
-![alt text](image-3.png)
+
+![alt text](image-9.png)
 
 
 #### 3. DELETE /cleanup/<execution_id> - Cleanup the Kubernetes job
